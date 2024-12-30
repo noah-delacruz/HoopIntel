@@ -1,0 +1,13 @@
+/*https://colorhunt.co/palette/22283131363f76abaeeeeeee*/
+.homeContainer {
+    color: #222831;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    height: 100vh;
+}
+
+body {
+    background-color: #eeeeee;
+}
