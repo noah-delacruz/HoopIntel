@@ -1,6 +1,7 @@
 import { useLocation } from "react-router-dom";
 import axios from "axios";
 import { useEffect, useState } from "react";
+import Player from "./Player";
 
 export default function SearchResults() {
     const location = useLocation();
@@ -37,11 +38,13 @@ export default function SearchResults() {
 
     return (
         <>
-            {results.map((player) => (
-                <div>
-                    {player.id} | {player.first_name}
-                </div>
-            ))}
+            <ul>
+                {results.map((player) => (
+                    <li>
+                        <Player data={player} />
+                    </li>
+                ))}
+            </ul>
         </>
     );
 }
