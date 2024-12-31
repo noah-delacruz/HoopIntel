@@ -4,6 +4,8 @@ import { useEffect, useState } from "react";
 import Player from "./Player";
 import Header from "./Header";
 import { Pagination, Typography } from "@mui/material";
+import Backdrop from "@mui/material/Backdrop";
+import CircularProgress from "@mui/material/CircularProgress";
 
 export default function SearchResults() {
     const location = useLocation();
@@ -43,7 +45,17 @@ export default function SearchResults() {
     };
 
     if (loading) {
-        return <div>Loading...</div>;
+        return (
+            <Backdrop
+                sx={(theme) => ({
+                    color: "#fff",
+                    zIndex: theme.zIndex.drawer + 1,
+                })}
+                open={loading}
+            >
+                <CircularProgress color="inherit" />
+            </Backdrop>
+        );
     }
     // Calculate the players to display for the current page
     const startIndex = (currentPage - 1) * playersPerPage;
