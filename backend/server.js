@@ -18,6 +18,34 @@ app.get("/", (req, res) => {
 
 app.get("/search/:name", async (req, res) => {
     let { name } = req.params;
+
+    // Split the name into potential first and last name
+    const [firstName, ...lastNameParts] = name.split(" ");
+    const lastName = lastNameParts.join(" "); // Rejoin the rest in case last name has spaces
+
+    let players;
+    if (lastName) {
+        // If both first and last name are provided, search using both
+        players = await api.nba.getPlayers({
+            first_name: firstName,
+            last_name: lastName,
+            perPage: 100,
+        });
+
+        // If no players found with the full name, fallback to searching by first name only
+        if (players.data.length === 0) {
+            players = await api.nba.getPlayers({
+                search: name,
+                per_page: 100,
+            });
+        }
+    } else {
+        players = await api.nba.getPlayers({
+            search: name,
+            per_page: 100,
+        });
+    }
+
     // let response = await axios.get(
     //     `https://api.balldontlie.io/v1/players?search=${name}`,
     //     {
@@ -27,11 +55,11 @@ app.get("/search/:name", async (req, res) => {
     //     }
     // );
 
-    // Search for players
-    const players = await api.nba.getPlayers({
-        search: name,
-        per_page: 100,
-    });
+    // // Search for players
+    // const players = await api.nba.getPlayers({
+    //     search: name,
+    //     per_page: 100,
+    // });
     res.json(players);
 });
 
