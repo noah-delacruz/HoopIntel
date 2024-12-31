@@ -6,6 +6,8 @@ import IconButton from "@mui/material/IconButton";
 import StarBorderIcon from "@mui/icons-material/StarBorder";
 import StarIcon from "@mui/icons-material/Star";
 import { useState } from "react";
+import Header from "./Header";
+import { Tooltip } from "@mui/material";
 
 export default function PlayerCard() {
     const location = useLocation();
@@ -43,18 +45,27 @@ export default function PlayerCard() {
 
     return (
         <>
+            <Header />
             <div className="playerCardContainer">
                 <Card sx={{ minWidth: 300 }}>
                     <CardContent>
                         <Typography variant="h5" component="div">
                             {playerData.first_name} {playerData.last_name}
-                            <IconButton onClick={handleClick}>
-                                {!isFavorited ? (
-                                    <StarBorderIcon />
-                                ) : (
-                                    <StarIcon />
-                                )}
-                            </IconButton>
+                            <Tooltip
+                                title={
+                                    !isFavorited
+                                        ? "Add to Favorites"
+                                        : "Remove from Favorites"
+                                }
+                            >
+                                <IconButton onClick={handleClick}>
+                                    {!isFavorited ? (
+                                        <StarBorderIcon />
+                                    ) : (
+                                        <StarIcon />
+                                    )}
+                                </IconButton>
+                            </Tooltip>
                         </Typography>
 
                         <Typography sx={{ color: "text.secondary", mb: 1.5 }}>

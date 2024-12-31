@@ -2,6 +2,7 @@ import { useLocation } from "react-router-dom";
 import axios from "axios";
 import { useEffect, useState } from "react";
 import Player from "./Player";
+import Header from "./Header";
 
 export default function SearchResults() {
     const location = useLocation();
@@ -38,6 +39,7 @@ export default function SearchResults() {
 
     return (
         <>
+            <Header />
             <ul>
                 {results.map((player) => (
                     <li key={player.id}>
