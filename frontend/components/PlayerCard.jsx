@@ -11,10 +11,20 @@ export default function PlayerCard() {
     const location = useLocation();
     const playerData = location.state.playerData;
 
-    const [favorite, setFavorite] = useState(false);
+    const [isFavorited, setIsFavorited] = useState(() => {
+        const favoriteStatus =
+            localStorage.getItem(`playerID_${playerData.id}`) || false; // Get favorite status of current movie if it exists, otherwise set it to false by default
+        return JSON.parse(favoriteStatus); // Convert string back to original boolean form
+    });
 
+    // Toggle favorite status and update localStorage
     const handleClick = () => {
-        setFavorite(!favorite);
+        setIsFavorited((currStatus) => {
+            let newStatus = !currStatus;
+            let stringNewStatus = JSON.stringify(newStatus); // Convert bool to string as local storage only holds strings
+            localStorage.setItem(`playerID_${playerData.id}`, stringNewStatus);
+            return newStatus; // Return the bool status instead of string status so that we can still use bool logic to display
+        });
     };
 
     const getOrdinal = (num) => {
@@ -39,7 +49,11 @@ export default function PlayerCard() {
                         <Typography variant="h5" component="div">
                             {playerData.first_name} {playerData.last_name}
                             <IconButton onClick={handleClick}>
-                                {!favorite ? <StarBorderIcon /> : <StarIcon />}
+                                {!isFavorited ? (
+                                    <StarBorderIcon />
+                                ) : (
+                                    <StarIcon />
+                                )}
                             </IconButton>
                         </Typography>
 
