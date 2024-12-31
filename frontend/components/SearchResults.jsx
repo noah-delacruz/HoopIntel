@@ -40,6 +40,17 @@ export default function SearchResults() {
     return (
         <>
             <Header />
+            {results.length > 0 ? (
+                <ul>
+                    {results.map((player) => (
+                        <li key={player.id}>
+                            <Player data={player} />
+                        </li>
+                    ))}
+                </ul>
+            ) : (
+                "No player(s) found"
+            )}
             <ul>
                 {results.map((player) => (
                     <li key={player.id}>
