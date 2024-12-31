@@ -21,6 +21,7 @@ export default function Home() {
         <>
             <div className="homeContainer">
                 <Typography variant="h4" gutterBottom>
+                    <img className="homeBallImage" src="../public/bball.png" />
                     HoopIntel
                 </Typography>
 

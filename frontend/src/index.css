@@ -39,3 +39,12 @@ body {
 ul {
     list-style-type: none;
 }
+
+.homeBallImage {
+    height: 40px;
+    margin-right: 10px;
+}
+
+.headerBallImage {
+    height: 40px;
+}
