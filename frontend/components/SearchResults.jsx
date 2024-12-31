@@ -3,13 +3,17 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import Player from "./Player";
 import Header from "./Header";
+import { Pagination, Typography } from "@mui/material";
 
 export default function SearchResults() {
     const location = useLocation();
     const playerName = location.state?.playerName || "No player name given";
     console.log(playerName);
+
     const [results, setResults] = useState(null);
     const [loading, setLoading] = useState(true);
+    const [currentPage, setCurrentPage] = useState(1); // Track the current page
+    const playersPerPage = 10; // Number of players per page
 
     useEffect(() => {
         const fetchData = async () => {
@@ -33,31 +37,39 @@ export default function SearchResults() {
         fetchData();
     }, [playerName]);
 
+    // Handle page changes
+    const handlePageChange = (event, page) => {
+        setCurrentPage(page); // Update current page
+    };
+
     if (loading) {
         return <div>Loading...</div>;
     }
-
+    // Calculate the players to display for the current page
+    const startIndex = (currentPage - 1) * playersPerPage;
+    const endIndex = startIndex + playersPerPage;
+    const displayedPlayers = results.slice(startIndex, endIndex);
     return (
         <>
             <Header />
-            {results.length > 0 ? (
-                <ul>
-                    {results.map((player) => (
-                        <li key={player.id}>
-                            <Player data={player} />
-                        </li>
-                    ))}
-                </ul>
-            ) : (
-                "No player(s) found"
-            )}
             <ul>
-                {results.map((player) => (
+                {displayedPlayers.map((player) => (
                     <li key={player.id}>
                         <Player data={player} />
                     </li>
                 ))}
             </ul>
+            <br />
+            <div className="paginationContainer">
+                <Typography variant="body2">
+                    {`${results.length} results`}
+                </Typography>
+                <Pagination
+                    count={Math.ceil(results.length / playersPerPage)} // Total pages
+                    page={currentPage} // Current page
+                    onChange={handlePageChange} // Handle page change
+                />
+            </div>
         </>
     );
 }
