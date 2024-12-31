@@ -40,7 +40,7 @@ export default function SearchResults() {
         <>
             <ul>
                 {results.map((player) => (
-                    <li>
+                    <li key={player.id}>
                         <Player data={player} />
                     </li>
                 ))}

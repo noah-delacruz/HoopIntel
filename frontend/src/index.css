@@ -8,6 +8,17 @@
     height: 100vh;
 }
 
+.playerCardContainer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+}
+
 body {
     background-color: #eeeeee;
+}
+
+ul {
+    list-style-type: none;
 }
