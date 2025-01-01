@@ -20,6 +20,11 @@ describe("GET /search/:name", () => {
             expect(response.body).toBeInstanceOf(Object);
             expect(response.body.data.length).toBeGreaterThan(0);
         });
+
+        test("should return steph curry in first index", async () => {
+            const response = await supertest(app).get("/search/steph");
+            expect(response.body.data[0].id).toBe(115);
+        });
     });
 
     describe("given two names", () => {
@@ -39,6 +44,11 @@ describe("GET /search/:name", () => {
             const response = await supertest(app).get("/search/stephen curry");
             expect(response.body).toBeInstanceOf(Object);
             expect(response.body.data.length).toBeGreaterThan(0);
+        });
+
+        test("should return steph curry in first index", async () => {
+            const response = await supertest(app).get("/search/stephen curry");
+            expect(response.body.data[0].id).toBe(115);
         });
     });
 
@@ -65,6 +75,29 @@ describe("GET /search/:name", () => {
             );
             expect(response.body).toBeInstanceOf(Object);
             expect(response.body.data.length).toBeGreaterThan(0);
+        });
+
+        test("should return steph curry in first index", async () => {
+            const response = await supertest(app).get(
+                "/search/    stephen     "
+            );
+            expect(response.body.data[0].id).toBe(115);
+        });
+    });
+
+    describe("fallsback to first name when fuill name search returns no results", () => {
+        test("should return players", async () => {
+            const response = await supertest(app).get(
+                "/search/kareem abdul jabbar"
+            );
+            expect(response.body.data.length).toBeGreaterThan(0);
+        });
+    });
+
+    describe("given a name for a player that does not exist", () => {
+        test("should return no players", async () => {
+            const response = await supertest(app).get("/search/foobarfum");
+            expect(response.body.data.length).toBe(0);
         });
     });
 });

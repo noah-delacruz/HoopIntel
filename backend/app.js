@@ -46,7 +46,7 @@ app.get("/search/:name", async (req, res) => {
         // If no players found with the full name, fallback to searching by first name only
         if (players.data.length === 0) {
             players = await api.nba.getPlayers({
-                search: name,
+                search: firstName,
                 per_page: 100,
             });
         }
