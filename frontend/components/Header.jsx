@@ -32,7 +32,7 @@ export default function Header() {
                 HoopIntel
             </Typography>
 
-            <form onSubmit={handleSubmit}>
+            <form aria-label="form" onSubmit={handleSubmit}>
                 <TextField
                     id="outlined-basic"
                     label="Search players"
