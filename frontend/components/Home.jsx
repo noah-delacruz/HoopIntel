@@ -13,7 +13,6 @@ export default function Home() {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        // console.log(input);
         navigate("/search", { state: { playerName: input } });
     };
 
