@@ -22,7 +22,7 @@ export default function Header() {
     };
     return (
         <div className="headerContainer">
-            <img className="headerBallImage" src="../public/bball.png" />
+            <img className="headerBallImage" src="/bball.png" />
             <Typography
                 className="headerTitle"
                 onClick={handleClick}

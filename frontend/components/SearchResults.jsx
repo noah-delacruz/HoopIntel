@@ -16,6 +16,7 @@ export default function SearchResults() {
     const [loading, setLoading] = useState(true);
     const [currentPage, setCurrentPage] = useState(1); // Track the current page
     const playersPerPage = 10; // Number of players per page
+    const API_URL = import.meta.env.VITE_API_URL || "http://localhost:3000/";
 
     useEffect(() => {
         const fetchData = async () => {
@@ -26,7 +27,7 @@ export default function SearchResults() {
             try {
                 setLoading(true);
                 const response = await axios.get(
-                    `http://localhost:3000/search/${playerName}`
+                    `${API_URL}search/${playerName}`
                 );
                 console.log(response.data.data);
                 setResults(response.data.data);
