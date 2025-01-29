@@ -2,6 +2,7 @@ import TextField from "@mui/material/TextField";
 import Typography from "@mui/material/Typography";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import GitHubIcon from "@mui/icons-material/GitHub";
 
 export default function Home() {
     const [input, setInput] = useState("");
@@ -23,7 +24,6 @@ export default function Home() {
                     <img className="homeBallImage" src="/bball.png" />
                     HoopIntel
                 </Typography>
-
                 <form aria-label="form" onSubmit={handleSubmit}>
                     <TextField
                         id="outlined-basic"
@@ -32,6 +32,14 @@ export default function Home() {
                         onChange={handleChange}
                     />
                 </form>
+                <a href="https://github.com/noah-delacruz/HoopIntel">
+                    <GitHubIcon></GitHubIcon>
+                </a>{" "}
+                <Typography variant="p" gutterBottom>
+                    Search requests may take a little longer to load initially
+                    as the backend runs on a free-tier service and may need to
+                    wake up. Thanks for your patience!
+                </Typography>
             </div>
         </>
     );
